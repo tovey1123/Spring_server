@@ -1,0 +1,5 @@
+package pkg_bizlogic;
+
+public class Authentication {
+
+}

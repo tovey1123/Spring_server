@@ -1,0 +1,15 @@
+package pkg_bizlogic;
+import java.util.Collection;
+import pkg_po.UserPO;
+
+public class Authentication {
+	public Collection<UserPO> verify(String ID,String PWD){
+
+RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+byte[] cipherbytes;
+rsa.FromXmlString(privatekey);
+		
+		
+		return null;		
+	}
+}
