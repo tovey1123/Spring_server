@@ -18,12 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import pkg_po.UserPO;
 import pkg_dao.UserDao;
 import pkg_bizlogic.RsaKey;
-
-
 import java.math.BigInteger;     
 import java.security.KeyFactory;     
 import java.security.PrivateKey;    
@@ -64,17 +61,20 @@ public class UserController {
 		
 		System.out.println(request);
 		String ID = request.getParameter("ID");
-		String PWD = request.getParameter("PWD").replace(" ", "+");   // post String to server, "+" will become a space
-	
+		String PWD = request.getParameter("PWD")==null?null:request.getParameter("PWD").replace(" ", "+");   // post String to server, "+" will become a space    通过APP发送 		
 		//解密
 		try{
-			passWord=rsakey.RSADecrypt(PWD);
-			System.out.println("passWord="+passWord);
+				passWord=rsakey.RSADecrypt(PWD);
+				System.out.println("passWord="+passWord);
 		}
 		catch (Exception e){
-			e.printStackTrace();
-			logger.error(e);
+				e.printStackTrace();
+				logger.error(e);
 		}
+		
+	
+		
+		
 
 		//查询数据库
 		List<Map> loginResult = dao.doLogin(ID,passWord);
@@ -102,6 +102,22 @@ public class UserController {
 		//return new ModelAndView(getViewpage(), mp);
 		//model.addAttribute("mp",mp);
 		//return getViewpage();
+	}
+	
+	@RequestMapping(value="/index", method=RequestMethod.POST,produces="text/html;charset=UTF-8")	
+	//public ModelAndView showResult(HttpServletRequest request,HttpServletResponse response, Object command, BindException errors)throws Exception {
+	 public String  showIndex(Model model,HttpServletRequest request,HttpServletResponse response){
+		String passWord=null;
+		
+		System.out.println(request);
+		String ID = request.getParameter("ID");
+		String PWD2 = request.getParameter("PWD2");     //通过网页发送
+		//查询数据库
+		List<Map> loginResult = dao.doLogin(ID,PWD2);
+		Map mp = loginResult.get(0);
+		model.addAttribute("mp",mp);
+		return "mainPage2";
+		
 	}
 	
 	@RequestMapping(value="/getPublicKey", method=RequestMethod.GET,produces="text/html;charset=UTF-8")

@@ -1,8 +1,0 @@
-package pkg_bizlogic;
-import java.util.Collection;
-import pkg_po.UserPO;
-
-public class Authentication {
-	
-
-}

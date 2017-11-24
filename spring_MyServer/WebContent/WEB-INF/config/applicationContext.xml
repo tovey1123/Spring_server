@@ -38,7 +38,7 @@
              <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />  
         </mvc:message-converters>
     </mvc:annotation-driven>
-   
+   <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
 
 	<!-- 获取配置文件 -->
 	<bean id="config"
