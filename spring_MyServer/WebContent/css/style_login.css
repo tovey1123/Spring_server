@@ -165,11 +165,13 @@ input[type="submit"]{
 	-o-transition: 0.5s all;
 	-ms-transition: 0.5s all;
 }
+
 input[type="submit"]:hover{
 	background:#fed14e;
 	color:#000;
 
 }
+
 .footer-w3l{
 	margin-top: 150px;
 	margin-bottom: 20px;
@@ -291,6 +293,7 @@ input[type="submit"]:hover{
 	input[type="submit"] {
 		margin-top:8px;
 	}
+
 }
 @media screen and (max-width: 414px) {
 	.container {
@@ -376,4 +379,5 @@ input[type="submit"]:hover{
 		width: 60%;
 		margin-top:10px;
 	}
+
 };

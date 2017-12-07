@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
         
     <context:component-scan base-package="pkg_controller"/>
-    <context:component-scan base-package="pkg_bizlogic"/>  
+    <context:component-scan base-package="pkg_service"/>  
       	
  <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
@@ -39,6 +39,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
    <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
+    <mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
 
 	<!-- 获取配置文件 -->
 	<bean id="config"
@@ -68,21 +69,28 @@
 	<!--定义视图 通过internalResourceView来表示 使用的是Servlet/jsp技术-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
+         <property name="suffix" value=".jsp"/>  
     </bean>
     
-    <bean id="rsakey" class="pkg_bizlogic.RsaKey">
-	</bean>
-	
+
 	<bean id="userDao" class="pkg_dao.UserDao ">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<bean id="userController" class="pkg_controller.UserController">
+	<bean id="baseController" class="pkg_controller.BaseController">
 		<property name="dao" ref="userDao"/>
 		<property name="rsakey" ref="rsakey"/>
-		<property name="viewpage">
-			<value>userInfo2</value>
-		</property>
 	</bean>
+	
+    <bean id="rsakey" class="pkg_service.RsaKey">
+	</bean>
+	<bean id="updatesv" class="pkg_service.UpdateSv">
+		<property name="dao" ref="userDao"/>
+	</bean>
+	<bean id="querysv" class="pkg_service.QuerySv">
+		<property name="dao" ref="userDao"/>
+	</bean>
+
+	
+
 
 </beans>

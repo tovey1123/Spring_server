@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@page import="com.yjde.springmvc.UserPO"%>
+<%@page import="pkg_po.UserPO"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -38,9 +38,9 @@ System.out.println(str);
    		for(UserPO user:str){
    			%>
    				<tr>
-   					<td><%=user.getUserId() %></td>
-   					<td><%=user.getUserName() %></td>
-   					<td><%=user.getUserAge() %></td>
+   					<td><%=user.getEmployee_name() %></td>
+   					<td><%=user.getAddress() %></td>
+   					<td><%=user.getPhone() %></td>
    				</tr>
    			<%
    		}

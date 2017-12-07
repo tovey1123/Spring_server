@@ -232,7 +232,7 @@ pre {
   background: url(../images/logo.png) no-repeat 0 11px;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   font-weight: 300;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 18px;
   height: auto;
 }
@@ -5491,7 +5491,7 @@ ul.timeline li > .date {
   .navbar-default .navbar-brand {
     background-position: 0 11px;
     height: 50px;
-    width: 45px;
+    width: 55px;
     padding-left: 26px;
   }
   .navbar-default .navbar-brand span {

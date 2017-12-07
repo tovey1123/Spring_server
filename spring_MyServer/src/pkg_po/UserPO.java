@@ -1,7 +1,7 @@
 package pkg_po;
 import java.io.Serializable;
 
-public class UserPO{
+public  class UserPO{
 	private Integer employee_id;
 	private String employee_name;
 	private String employee_pwd;
@@ -9,7 +9,7 @@ public class UserPO{
 	private String phone;
 	private String birthday;
 	private String department;
-	private String Email;
+	private String email;
 	private String address;
 	private String lever;
 
@@ -20,21 +20,21 @@ public class UserPO{
 	public void setEmployee_id(Integer employee_id) {
 		this.employee_id = employee_id;
 	}
+	
+	public String getEmployee_pwd() {
+		return employee_pwd;
+	}
 
+	public void setEmployee_pwd(String employee_pwd) {
+		this.employee_pwd = employee_pwd;
+	}
+	
 	public String getEmployee_name() {
 		return employee_name;
 	}
 
 	public void setEmployee_name(String employee_name) {
 		this.employee_name = employee_name;
-	}
-	
-	public String getEmployee_pwd() {
-		return employee_pwd;
-	}
-	
-	public void setEmployee_pwd(String employee_pwd){
-		this.employee_pwd = employee_pwd;
 	}
 	
 	public String getGender(){
@@ -70,11 +70,11 @@ public class UserPO{
 	}
 	
 	public String getEmail(){
-		return Email;
+		return email;
 	}
 	
-	public void setEmail(String Email){
-		this.Email = Email;
+	public void setEmail(String email){
+		this.email = email;
 	}
 	
 	public String getAddress(){

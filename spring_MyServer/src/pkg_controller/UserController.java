@@ -1,26 +1,27 @@
+/**
+* UserController用于登陆，初始化用户、session
+*/
+
+
 package pkg_controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.validation.BindException;
 import org.springframework.stereotype.Controller;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pkg_po.UserPO;
-import pkg_dao.UserDao;
-import pkg_bizlogic.RsaKey;
+import pkg_service.ConnectionPool;
+
 import java.math.BigInteger;     
 import java.security.KeyFactory;     
 import java.security.PrivateKey;    
@@ -34,32 +35,18 @@ import javax.crypto.Cipher;
 import sun.misc.*; 
 
 @Controller
-public class UserController {
+public class UserController extends BaseController{
 
-	private static final Log logger = LogFactory.getLog(UserController.class);
-	private String viewpage;
-	private UserDao dao;
-	private RsaKey rsakey;
-	public void setDao(UserDao dao) {
-		this.dao = dao;
-	}
-	public String getViewpage() {
-		return viewpage;
-	}
-
-	public void setViewpage(String viewpage) {
-		this.viewpage = viewpage;
-	}
 	
-	public void setRsakey(RsaKey rsakey){
-		this.rsakey = rsakey;
-	}
+	
+	//C#登陆
 	@RequestMapping(value="/login", method=RequestMethod.POST,produces="text/html;charset=UTF-8")	
 	//public ModelAndView showResult(HttpServletRequest request,HttpServletResponse response, Object command, BindException errors)throws Exception {
-	 public @ResponseBody Map showResult(Model model,HttpServletRequest request,HttpServletResponse response){
+	 public @ResponseBody Map showResult(HttpServletRequest request,HttpServletResponse response){
 		String passWord=null;
 		
-		System.out.println(request);
+		String JSESSIONID=request.getSession().getId();
+		System.out.println(JSESSIONID);
 		String ID = request.getParameter("ID");
 		String PWD = request.getParameter("PWD")==null?null:request.getParameter("PWD").replace(" ", "+");   // post String to server, "+" will become a space    通过APP发送 		
 		//解密
@@ -71,52 +58,57 @@ public class UserController {
 				e.printStackTrace();
 				logger.error(e);
 		}
-		
-	
-		
-		
+			
 
 		//查询数据库
-		List<Map> loginResult = dao.doLogin(ID,passWord);
+		List<Map> loginResult = dao.doLogin(ID);
+		UserPO userPO =(UserPO)loginResult.get(0).get("data");
+		if(!userPO.getEmployee_pwd().equals(PWD)){
+			
+		}
+		
+		String uid = JSESSIONID+System.currentTimeMillis()+"";
+		ConnectionPool.getInstance().addUser(uid,userPO);
+		response.addCookie(new Cookie("uid",uid));
 		return loginResult.get(0);
 		
-//		List<UserPO> users = new ArrayList<UserPO>();
-//		UserPO user;
-//		for (UserPO userPO : list) {
-//			user = new UserPO();
-//			user.setEmployeeId(userPO.getEmployeeId());
-//			user.setEmployeeName(userPO.getEmployeeName());			
-//			user.setEmployeePWD(userPO.getEmployeePWD());
-//			user.setGender(userPO.getGender());
-//			user.setPhone(userPO.getPhone());
-//			user.setBirthday(userPO.getBirthday());
-//			user.setDepartment(userPO.getDepartment());
-//			user.setEmail(userPO.getEmail());
-//			user.setAddress(userPO.getAddress());
-//			user.setLever(userPO.getLever());
-//			users.add(user);
-//		}
-
-//		Map mp = new HashMap();
-//		mp.put("list", list);
-		//return new ModelAndView(getViewpage(), mp);
-		//model.addAttribute("mp",mp);
-		//return getViewpage();
 	}
 	
+	//网页登陆 
 	@RequestMapping(value="/index", method=RequestMethod.POST,produces="text/html;charset=UTF-8")	
-	//public ModelAndView showResult(HttpServletRequest request,HttpServletResponse response, Object command, BindException errors)throws Exception {
-	 public String  showIndex(Model model,HttpServletRequest request,HttpServletResponse response){
-		String passWord=null;
-		
-		System.out.println(request);
+	 public @ResponseBody Map  showIndex(Model model,HttpServletRequest request,HttpServletResponse response){
+				
+		String passWord=null;		
 		String ID = request.getParameter("ID");
-		String PWD2 = request.getParameter("PWD2");     //通过网页发送
-		//查询数据库
-		List<Map> loginResult = dao.doLogin(ID,PWD2);
-		Map mp = loginResult.get(0);
-		model.addAttribute("mp",mp);
-		return "mainPage2";
+		String PWD2 = request.getParameter("PWD2");     //通过网页发送，，字段不同
+		
+		//query
+		List<Map> loginResult = dao.doLogin(ID);
+		
+		Map<String,Object> result = new HashMap<>();
+
+		//check
+		if(result.get("errCode")=="1"){
+			result.put("errCode", "1");
+			return result;   //errCode=1；用户名不存在
+		}
+	
+		UserPO userPO =(UserPO)loginResult.get(0).get("data");
+
+		if(!userPO.getEmployee_pwd().equals(PWD2)){
+			result.put("errCode", "2");
+			return result;   //errCode=2；密码错误
+		}
+		result=loginResult.get(0);
+		//set Session 
+		ConnectionPool.getInstance().setSession(request, ID);
+		
+		//add user to pool
+		ConnectionPool.getInstance().addUser(ID,userPO);
+
+		//return view
+		model.addAttribute("userPo",userPO);
+		return result;
 		
 	}
 	
@@ -129,6 +121,8 @@ public class UserController {
 		return re[0]+","+re[1];
 	}
 	
+	
+	//test RSA
 	@RequestMapping(value="/test/*", method=RequestMethod.GET,produces="text/html;charset=UTF-8")
 	public @ResponseBody void testPublicKey() throws Exception{
 		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");        
@@ -169,7 +163,7 @@ public class UserController {
        String st="";  
        while(!(st=sc.nextLine()).equals(""))  
        {  
-            str_en+=st;  
+            str_en+=st;
        }  
        byte[] ary_en=(new BASE64Decoder()).decodeBuffer(str_en);  
         //解密  
@@ -182,5 +176,10 @@ public class UserController {
 	}
 	
 	
-
+	
+	public void UpdatePO(String ID,String PWD){
+		List<Map> loginResult = dao.doLogin(ID);
+		ConnectionPool.getInstance().addUser(ID,(UserPO)loginResult.get(0).get("data"));
+	}
+		
 }
