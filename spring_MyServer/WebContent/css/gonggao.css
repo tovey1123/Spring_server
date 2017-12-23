@@ -1,0 +1,40 @@
+/*border-bottom: 1px solid #F0F0F0;*/
+        .huadong {width: 60rem;height:4rem;padding: 0.5rem 0 0.3rem 0; border-bottom: 1px solid #F0F0F0; position:relative;font: 12px/1.5 "Hiragino Sans GB","Microsoft YaHei",simsun !important;margin:0 auto;}
+        .huadong .huabox {  margin:0 auto; width: 80%; line-height: 4rem;}
+        .huadong .hdimg {float:left;line-height:3.5rem;}
+        .huadong .hdimg img { width: 100%; vertical-align:middle;}
+        .huadong h5 {font-size:1rem;float:left; line-height: 2.2rem; margin: 0.8rem 0 0 0; }
+        .huadong .gg_more { float: left;}
+        .huadong .gg_more a { font-size: 0.8rem; text-decoration:none;}
+        
+        .huadong .notice_active {
+                float: left;
+                width: 65%;
+                height: 4rem;
+                padding: 0;
+                overflow: hidden;
+                position: relative;
+                font-size:14px;
+        }
+        .huadong .notice_active li{list-style-type:none;line-height: 2.4rem;overflow: hidden;}
+        /*.huadong .notice_active li.notice_active_ch {}*/
+        .huadong .notice_active li.notice_active_ch span {color:#656972;font-size:1rem;display: block;overflow: hidden; width:80%;float: left;
+        overflow: hidden;margin:0 0 2rem 0;}
+        .huadong .gg_more .news_ck {
+                float: left;
+                margin: 0 1rem 0 1rem;
+                color: #888;
+                width: 5rem;
+                height: 2rem;
+                line-height: 2rem;
+                display: block;
+                border: 1px solid #656972;
+                text-align: center;
+                border-radius: 0.7rem;
+                font-size: 0.8rem;
+                margin-top: 1rem;
+            }
+        .huadong .gg_more .news_more {
+            
+        }
+        .huadong .notice_active li.notice_active_ch em {text-align:right;float:right;color:#888;font-size:0.8rem;font-style:normal;  }

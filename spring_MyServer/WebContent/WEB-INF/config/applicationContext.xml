@@ -83,10 +83,7 @@
 	
     <bean id="rsakey" class="pkg_service.RsaKey">
 	</bean>
-	<bean id="updatesv" class="pkg_service.UpdateSv">
-		<property name="dao" ref="userDao"/>
-	</bean>
-	<bean id="querysv" class="pkg_service.QuerySv">
+	<bean id="sv" class="pkg_service.BaseSv">
 		<property name="dao" ref="userDao"/>
 	</bean>
 

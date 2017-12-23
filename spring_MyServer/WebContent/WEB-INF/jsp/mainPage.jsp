@@ -1,7 +1,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="pkg_po.UserPO"%>
+<%@page import="java.util.Date "%>
+<%@page import="java.text.SimpleDateFormat" %>
+<%
+Date dt= new Date();
+SimpleDateFormat f1 = new SimpleDateFormat("EEEE");
+SimpleDateFormat f2 = new SimpleDateFormat("yyyy/MM/dd");//设置日期格式
+String week=f1.format(dt);
+String week2=null;
+String date=f2.format(dt);
+int day = Integer.valueOf(date.substring(8));
+if(week.equals("星期一")){ week2 = "Monday";}
+else if(week.equals("星期二")){ week2 = "Tuesday";}
+else if(week.equals("星期三")){ week2 = "Wednesday";}
+else if(week.equals("星期四")){ week2 = "Thursday";}
+else if(week.equals("星期五")){  week2 = "Friday";}
+else if(week.equals("星期六")){ week2 = "Saturday";}
+else { week2 ="Sunday";}
 
+request.setAttribute("week2", week2);
+request.setAttribute("day", day);
+request.setAttribute("date", date);
+%>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -25,15 +46,16 @@
     <![endif]-->
 	    <link rel="stylesheet" type="text/css" href="js/jquery.gritter/css/jquery.gritter.css" />
 
-  <link rel="stylesheet" type="text/css" href="js/jquery.nanoscroller/nanoscroller.css" />
-  <link rel="stylesheet" type="text/css" href="js/jquery.easypiechart/jquery.easy-pie-chart.css" />
+    <link rel="stylesheet" type="text/css" href="js/jquery.nanoscroller/nanoscroller.css" />
+    <link rel="stylesheet" type="text/css" href="js/jquery.easypiechart/jquery.easy-pie-chart.css" />
 	<link rel="stylesheet" type="text/css" href="js/bootstrap.switch/bootstrap-switch.css" />
 	<link rel="stylesheet" type="text/css" href="js/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css" />
 	<link rel="stylesheet" type="text/css" href="js/jquery.select2/select2.css" />
 	<link rel="stylesheet" type="text/css" href="js/bootstrap.slider/css/slider.css" />
 	<link rel="stylesheet" type="text/css" href="js/intro.js/introjs.css" />
+	
   <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -48,55 +70,55 @@
         <a class="navbar-brand" href="#"><span>预应力检测管理系统</span></a>
       </div>
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-      <li class="dropdown-submenu"><a href="#">Sub menu</a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          </ul>
-      </li>              
-      </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Large menu <b class="caret"></b></a>
-      <ul class="dropdown-menu col-menu-2">
-        <li class="col-sm-6 no-padding">
-          <ul>
-          <li class="dropdown-header"><i class="fa fa-group"></i>Users</li>
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li class="dropdown-header"><i class="fa fa-gear"></i>Config</li>
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li> 
-          </ul>
-        </li>
-        <li  class="col-sm-6 no-padding">
-          <ul>
-          <li class="dropdown-header"><i class="fa fa-legal"></i>Sales</li>
-          <li><a href="#">New sale</a></li>
-          <li><a href="#">Register a product</a></li>
-          <li><a href="#">Register a client</a></li> 
-          <li><a href="#">Month sales</a></li>
-          <li><a href="#">Delivered orders</a></li>
-          </ul>
-        </li>
-      </ul>
-          </li>
-        </ul>
+<!--         <ul class="nav navbar-nav"> -->
+<!--           <li class="active"><a href="#">Home</a></li> -->
+<!--           <li><a href="#about">About</a></li> -->
+<!--           <li class="dropdown"> -->
+<!--             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact <b class="caret"></b></a> -->
+<!--             <ul class="dropdown-menu"> -->
+<!--               <li><a href="#">Action</a></li> -->
+<!--               <li><a href="#">Another action</a></li> -->
+<!--               <li><a href="#">Something else here</a></li> -->
+<!--       <li class="dropdown-submenu"><a href="#">Sub menu</a> -->
+<!--         <ul class="dropdown-menu"> -->
+<!--           <li><a href="#">Action</a></li> -->
+<!--           <li><a href="#">Another action</a></li> -->
+<!--           <li><a href="#">Something else here</a></li> -->
+<!--           </ul> -->
+<!--       </li>               -->
+<!--       </ul> -->
+<!--           </li> -->
+<!--           <li class="dropdown"> -->
+<!--             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Large menu <b class="caret"></b></a> -->
+<!--       <ul class="dropdown-menu col-menu-2"> -->
+<!--         <li class="col-sm-6 no-padding"> -->
+<!--           <ul> -->
+<!--           <li class="dropdown-header"><i class="fa fa-group"></i>Users</li> -->
+<!--           <li><a href="#">Action</a></li> -->
+<!--           <li><a href="#">Another action</a></li> -->
+<!--           <li><a href="#">Something else here</a></li> -->
+<!--           <li class="dropdown-header"><i class="fa fa-gear"></i>Config</li> -->
+<!--           <li><a href="#">Action</a></li> -->
+<!--           <li><a href="#">Another action</a></li> -->
+<!--           <li><a href="#">Something else here</a></li>  -->
+<!--           </ul> -->
+<!--         </li> -->
+<!--         <li  class="col-sm-6 no-padding"> -->
+<!--           <ul> -->
+<!--           <li class="dropdown-header"><i class="fa fa-legal"></i>传感器预应力走势图</li> -->
+<!--           <li><a href="#">New sale</a></li> -->
+<!--           <li><a href="#">Register a product</a></li> -->
+<!--           <li><a href="#">Register a client</a></li>  -->
+<!--           <li><a href="#">Month sales</a></li> -->
+<!--           <li><a href="#">Delivered orders</a></li> -->
+<!--           </ul> -->
+<!--         </li> -->
+<!--       </ul> -->
+<!--           </li> -->
+<!--         </ul> -->
     <ul class="nav navbar-nav navbar-right user-nav">
       <li class="dropdown profile_menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img alt="Avatar" src="images/avatar2.jpg" /><span>${userPo.employee_name}</span> <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img alt="Avatar" src="images/avatar2_wzw.jpg" /><span>${userPo.employee_name}</span> <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="#">My Account</a></li>
           <li><a href="#">Profile</a></li>
@@ -202,32 +224,8 @@
               </li>
               <li><a href="sensor?ID=${userPo.employee_id}"><i class="fa fa-rss-square"></i><span>传感器管理</span></a>
               </li>                              
-              <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i><span>预应力查询</span></a></li>        
-              <li><a href="#"><i class="fa fa-map-marker nav-icon"></i><span>Maps</span></a>
-                <ul class="sub-menu">
-                  <li><a href="maps.html">Google Maps</a></li>
-                  <li><a href="baidumaps.html">Baidu Maps</a></li>
-                </ul>
-              </li>             
+              <li><a href="prestress?ID=${userPo.employee_id}"><i class="fa fa-bar-chart-o"></i><span>预应力查询</span></a></li>        
 
-              <li><a href="#"><i class="fa fa-file"></i><span>Pages</span></a>
-                <ul class="sub-menu">
-                  <li><a href="pages-blank.html">Blank Page</a></li>
-                  <li><a href="pages-blank-header.html">Blank Page Header</a></li>
-                  <li><a href="pages-blank-aside.html">Blank Page Aside</a></li>
-                  <li><a href="pages-login.html">Login</a></li>
-                  <li><a href="pages-404.html">404 Page</a></li>
-                  <li><a href="pages-500.html">500 Page</a></li>
-                  <li><a href="pages-sign-up.html"><span class="label label-primary pull-right">New</span>Sign Up</a></li>
-                  <li><a href="pages-forgot-password.html"><span class="label label-primary pull-right">New</span>Forgot Password</a></li>
-                  <li><a href="pages-profile.html"><span class="label label-primary pull-right">New</span>Profile</a></li>
-                  <li><a href="pages-search.html"><span class="label label-primary pull-right">New</span>Search</a></li>
-                  <li><a href="pages-calendar.html"><span class="label label-primary pull-right">New</span>Calendar</a></li>
-                  <li><a href="pages-code-editor.html"><span class="label label-primary pull-right">New</span>Code Editor</a></li>
-                  <li><a href="pages-gallery.html">Gallery</a></li>
-                  <li><a href="pages-timeline.html">Timeline</a></li>
-                </ul>
-              </li>
             </ul>
           </div>
         </div>
@@ -238,9 +236,11 @@
 			</div>
 		</div>
 	
+
+	
 		<div class="container-fluid" id="pcont">
 		  <div class="cl-mcont">
-		  
+<!--  		  
 			<div class="stats_bar">
 				<div class="butpro butstyle" data-step="2" data-intro="<strong>Beautiful Elements</strong> <br/> If you are looking for a different UI, this is for you!.">
 					<div class="sub"><h2>CLIENTS</h2><span id="total_clientes">170</span></div>
@@ -269,12 +269,84 @@
 
 			</div>
 
-			<div class="row dash-cols">
+-->
+					
+				
+	      <div class="row dash-cols">
+        <div class="col-sm-6 col-md-6">
+          <div class="widget-block  white-box calendar-box">
+            <div class="col-md-6 blue-box calendar no-padding">
+              <div class="padding ui-datepicker"></div>
+            </div>
+            <div class="col-md-6">
+              <div class="padding">
+                <h2 class="text-center">${week2}</h2>
+                <h1 class="day">${day}</h1>
+              </div>
+            </div>
+          </div>
+          
+          <div class="widget-block photo white-box weather-box">
+            <div class="col-md-6 padding photo">
+              <h2 class="text-center">${week}</h2>
+              <h1 class="day">${date}</h1>
+            </div>
+            <div class="col-md-6 red-box">
+              <div class="padding text-center">
+                <canvas id="sun-icon" width="130" height="215"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+		<div class="col-sm-6 col-md-6">
+					<div class="block">
+						<div class="header">
+							<h2>通知公告 </h2>
+						</div>
+						<div class="content no-padding ">
+							<ul class="items">
+								<li>
+									<i class="fa fa-file-text"></i>认真学习宣传贯彻党的十九大精神<span class="pull-right value">2017.12.08</span>
+								</li>
+								<li>
+									<i class="fa fa-file-text"></i>中国铁总与中国邮政集团签署战略合作协议<span class="pull-right value">2017.12.06</span>
+								</li>
+								<li>
+									<i class="fa fa-file-text"></i>上海站年发送旅客首次突破1亿人次<span class="pull-right value">2017.12.05</span>
+								</li>
+								<li>
+									<i class="fa fa-file-text"></i>川藏铁路拉萨至林芝段路基主体工程完成<span class="pull-right value">2017.12.03</span>
+								</li>
+								<li>
+									<i class="fa fa-file-text"></i>第十四届中国国际现代化铁路技术装备展落幕<span class="pull-right value">2017.11.03</span>									
+								</li>
+								<li>
+									<i class="fa fa-file-text"></i>第十五届冬季趣味运动会圆满落幕<span class="pull-right value">2017.10.28</span>									
+								</li>
+							</ul>
+						</div>
+							<div class="total-data bg-blue" >
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<h2>更多 <b class="caret"></b> <span class="pull-right"></span></h2>
+								</a>
+<!-- 								<ul class="dropdown-menu"> -->
+<!-- 									<li><a href="#">Print receipt</a></li> -->
+<!-- 									<li><a href="#">Send invoice to...</a></li> -->
+<!-- 									<li><a href="#">Payment</a></li> -->
+<!-- 								</ul> -->
+							</div>
+					</div>
+				</div>	
 			
+	</div>
+				
+				
+			<div class="row dash-cols">
 				<div class="col-sm-6 col-md-6">
 					<div class="block">
 						<div class="header no-border">
-							<h2>Sales</h2>
+							<h2>预应力变化折线图</h2>
 						</div>
 						<div class="content blue-chart"  data-step="3" data-intro="<strong>Unique Styled Plugins</strong> <br/> We put love in every detail to give a great user experience!.">
 							<div id="site_statistics" style="height:180px;"></div>
@@ -282,18 +354,18 @@
 						<div class="content">
 							<div class="stat-data">
 								<div class="stat-blue">
-									<h2>1,254</h2>
-									<span>Total Sales</span>
+									<h2>140</h2>
+									<span>传感器总数</span>
 								</div>
 							</div>
 							<div class="stat-data">
 								<div class="stat-number">
 									<div><h2>83</h2></div>
-									<div>Total hits<br /><span>(Daily)</span></div>
+									<div>预应力正常<br /></div>
 								</div>
 								<div class="stat-number">
 									<div><h2>57</h2></div>
-									<div>Views<br /><span>(Daily)</span></div>
+									<div>预应力不正常<br /><span>(偏大/偏小)</span></div>
 								</div>
 							</div>
 							<div class="clear"></div>
@@ -304,151 +376,55 @@
 				<div class="col-sm-6 col-md-6">
 					<div class="block">
 						<div class="header no-border">
-							<h2>Monitor</h2>
+							<h2>线路传感器总数统计图</h2>
 						</div>
 						<div class="content red-chart">
 							<div id="site_statistics2" style="height:152px;"></div>
 						</div>
-						<div class="content no-padding">
-							<table class="red">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th class="right"><span>25%</span>C.P.U</th>
-										<th class="right"><span>29%</span>Memory</th>
-										<th class="right"><span>16%</span>Disc</th>
-									</tr>
-								</thead>
-								<tbody class="no-border-x">
-									<tr>
-										<td style="width:40%;"><i class="fa fa-sitemap"></i> Server load</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-									<tr>
-										<td><i class="fa fa-tasks"></i> Apps</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-									<tr>
-										<td><i class="fa fa-signal"></i> Process</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-									<tr>
-										<td><i class="fa fa-bolt"></i> Wamp Server</td>
-										<td class="text-right">0,2%</td>
-										<td class="text-right">13,2 MB</td>
-										<td class="text-right">0,1 MB/s</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+<!-- 						<div class="content no-padding"> -->
+<!-- 							<table class="red"> -->
+<!-- 								<thead> -->
+<!-- 									<tr> -->
+<!-- 										<th>Name</th> -->
+<!-- 										<th class="right"><span>25%</span>C.P.U</th> -->
+<!-- 										<th class="right"><span>29%</span>Memory</th> -->
+<!-- 										<th class="right"><span>16%</span>Disc</th> -->
+<!-- 									</tr> -->
+<!-- 								</thead> -->
+<!-- 								<tbody class="no-border-x"> -->
+<!-- 									<tr> -->
+<!-- 										<td style="width:40%;"><i class="fa fa-sitemap"></i> Server load</td> -->
+<!-- 										<td class="text-right">0,2%</td> -->
+<!-- 										<td class="text-right">13,2 MB</td> -->
+<!-- 										<td class="text-right">0,1 MB/s</td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td><i class="fa fa-tasks"></i> Apps</td> -->
+<!-- 										<td class="text-right">0,2%</td> -->
+<!-- 										<td class="text-right">13,2 MB</td> -->
+<!-- 										<td class="text-right">0,1 MB/s</td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td><i class="fa fa-signal"></i> Process</td> -->
+<!-- 										<td class="text-right">0,2%</td> -->
+<!-- 										<td class="text-right">13,2 MB</td> -->
+<!-- 										<td class="text-right">0,1 MB/s</td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td><i class="fa fa-bolt"></i> Wamp Server</td> -->
+<!-- 										<td class="text-right">0,2%</td> -->
+<!-- 										<td class="text-right">13,2 MB</td> -->
+<!-- 										<td class="text-right">0,1 MB/s</td> -->
+<!-- 									</tr> -->
+<!-- 								</tbody> -->
+<!-- 							</table> -->
+<!-- 						</div> -->
 					</div>
 				</div>
 			</div>
 			
 			<div class="row dash-cols">
-				<div class="col-sm-6 col-md-6">
-					<div class="block">
-						<div class="header">
-							<h2>Invoice <span class="pull-right">#45</span></h2>
-							<h3>Your order has been delivered</h3>
-						</div>
-						<div class="content no-padding ">
-							<ul class="items">
-								<li>
-									<i class="fa fa-file-text"></i>Filet Mignon <span class="pull-right value">$35</span>
-									<small>Italian food</small>
-								</li>
-								<li>
-									<i class="fa fa-file-text"></i>Blue beer<span class="pull-right value">$35</span>
-									<small>Bar drinks</small>
-								</li>
-								<li>
-									<i class="fa fa-file-text"></i>T-shirts<span class="pull-right value">$35</span>
-									<small>Software development</small>
-								</li>
-								<li>
-									<i class="fa fa-file-text"></i>Cloud App<span class="pull-right value">$35</span>
-									<small>Game department</small>
-								</li>
-								<li>
-									<i class="fa fa-file-text"></i>Black Metal Music<span class="pull-right value">$35</span>
-									<small>Metal genre</small>
-									
-								</li>
-							</ul>
-						</div>
-							<div class="total-data bg-blue" >
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<h2>Total <b class="caret"></b> <span class="pull-right">$25.3</span></h2>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a href="#">Print receipt</a></li>
-									<li><a href="#">Send invoice to...</a></li>
-									<li><a href="#">Payment</a></li>
-								</ul>
-							</div>
-					</div>
-				</div>	
-				<div class="col-sm-6 col-md-6">
-						<ul class="nav nav-tabs">
-						  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-						  <li><a href="#profile" data-toggle="tab">Profile</a></li>
-						  <li><a href="#messages" data-toggle="tab">Messages</a></li>
-						</ul>
-						<div class="tab-content">
-						  <div class="tab-pane active cont" id="home">
-								<h2 class="text-center">Our Experience</h2>
-								<div id="piec" style="height:300px;margin-top:25px;"></div>
-						  </div>
-						  <div class="tab-pane cont" id="profile">
-						  		<h2>Typography</h2>
-								<p>Pellentesque ac quam hendrerit, viverra leo eu, <b>dapibus mi</b>. In at luctus massa. Morbi semper nulla eu velit facilisis pellentesque. Mauris adipiscing turpis in bibendum tempus. <i>Donec viverra</i>, lacus ac mollis rhoncus, libero risus placerat nisi, et viverra justo eros eget dui. Mauris convallis et tellus non <a href="#">placerat</a>.</p>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce gravida est eros, eget porta leo fringilla et. </p>
-                <a href="#">Read more</a>
-						  </div>
-						  <div class="tab-pane" id="messages">
-                <h2 class="hthin">A Lorem Ipsum Story</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a metus pulvinar turpis porttitor imperdiet vel nec justo. Nam id orci purus. Mauris arcu velit, auctor et aliquam quis, rhoncus a velit. Sed laoreet ultrices dolor eget vehicula. Morbi adipiscing euismod nisi, eget tincidunt arcu laoreet at.</p>
-                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam et tortor ultricies, mollis nunc eget, gravida sapien.</p>
-              </div>
-						</div>
-				</div>		
-			</div>
-
-			<div class="row dash-cols">
-        <div class="col-sm-6 col-md-6">
-          <div class="widget-block  white-box calendar-box">
-            <div class="col-md-6 blue-box calendar no-padding">
-              <div class="padding ui-datepicker"></div>
-            </div>
-            <div class="col-md-6">
-              <div class="padding">
-                <h2 class="text-center">Monday</h2>
-                <h1 class="day">2</h1>
-              </div>
-            </div>
-          </div>
-          
-          <div class="widget-block photo white-box weather-box">
-            <div class="col-md-6 padding photo">
-              <h2 class="text-center">Monday</h2>
-              <h1 class="day">10/12/2013</h1>
-            </div>
-            <div class="col-md-6 red-box">
-              <div class="padding text-center">
-                <canvas id="sun-icon" width="130" height="215"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-				<div class="col-sm-6 col-md-6">
+					<div class="col-sm-6 col-md-6">
 					<ul class="nav nav-tabs">
 					  <li class="active"><a href="#chat-1" data-toggle="tab">Adam</a></li>
 					  <li><a href="#chat-2" data-toggle="tab">Mike</a></li>
@@ -616,10 +592,36 @@
 						</div>						  
 					  </div>
 					</div>
+				</div>
+
+				
+				<div class="col-sm-6 col-md-6">
+						<ul class="nav nav-tabs">
+						  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+						  <li><a href="#profile" data-toggle="tab">Profile</a></li>
+						  <li><a href="#messages" data-toggle="tab">Messages</a></li>
+						</ul>
+						<div class="tab-content">
+						  <div class="tab-pane active cont" id="home">
+								<h2 class="text-center">传感器状态饼状图</h2>
+								<div id="piec" style="height:300px;margin-top:25px;"></div>
+						  </div>
+						  <div class="tab-pane cont" id="profile">
+						  		<h2>Typography</h2>
+								<p>Pellentesque ac quam hendrerit, viverra leo eu, <b>dapibus mi</b>. In at luctus massa. Morbi semper nulla eu velit facilisis pellentesque. Mauris adipiscing turpis in bibendum tempus. <i>Donec viverra</i>, lacus ac mollis rhoncus, libero risus placerat nisi, et viverra justo eros eget dui. Mauris convallis et tellus non <a href="#">placerat</a>.</p>
+                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce gravida est eros, eget porta leo fringilla et. </p>
+                <a href="#">Read more</a>
+						  </div>
+						  <div class="tab-pane" id="messages">
+                <h2 class="hthin">A Lorem Ipsum Story</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a metus pulvinar turpis porttitor imperdiet vel nec justo. Nam id orci purus. Mauris arcu velit, auctor et aliquam quis, rhoncus a velit. Sed laoreet ultrices dolor eget vehicula. Morbi adipiscing euismod nisi, eget tincidunt arcu laoreet at.</p>
+                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam et tortor ultricies, mollis nunc eget, gravida sapien.</p>
+              </div>
+						</div>
 				</div>		
-			
 			</div>
-			
+
+	   
 			
 			<div class="row dash-cols">
 				<div class="col-sm-6 col-md-6 col-lg-4">
@@ -719,13 +721,17 @@
 					</div>
 				</div>					
 			</div>
-		
-		  </div>
+				
+			
+
+			</div>
+		 
 		</div> 
 		
 	</div>
 
   <script src="js/jquery.min.js"></script>
+   <script src="js/gonggao.js"></script>
     <script type="text/javascript" src="js/jquery.gritter/js/jquery.gritter.js"></script>
 
   <script type="text/javascript" src="js/jquery.nanoscroller/jquery.nanoscroller.js"></script>
@@ -752,7 +758,6 @@
         App.init();
         App.dashBoard();        
         
-          introJs().setOption('showBullets', false).start();
 
       });
     </script>

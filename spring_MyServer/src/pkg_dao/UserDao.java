@@ -60,8 +60,11 @@ public class UserDao extends JdbcDaoSupport {
 
 	
 	
-	public List<SensorPO> query(String sql, SensorRowMapper srm){
+	public List query(String sql, RowMapper srm){
 		return super.getJdbcTemplate().query(sql,srm);
+	}
+	public List query(String sql,Object[] arr, RowMapper srm){
+		return super.getJdbcTemplate().query(sql,arr,srm);
 	}
 	
 	public int doUpdate(String sql,Object[] arr) {
@@ -69,6 +72,8 @@ public class UserDao extends JdbcDaoSupport {
 		return super.getJdbcTemplate().update(sql,arr);
 						
 	}
+	
+
 	
 	
 }

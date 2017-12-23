@@ -78,65 +78,43 @@ var App = function () {
     } 
 
     function randValue() {
-      return (Math.floor(Math.random() * (1 + 50 - 20))) + 10;
+     // return (Math.floor(Math.random() * (1 + 50 - 20))) + 110;
+      return  110;
     }
 
     var pageviews = [
-    [1, randValue()],
-    [2, randValue()],
-    [3, 2 + randValue()],
-    [4, 3 + randValue()],
-    [5, 5 + randValue()],
-    [6, 10 + randValue()],
-    [7, 15 + randValue()],
-    [8, 20 + randValue()],
-    [9, 25 + randValue()],
-    [10, 30 + randValue()],
-    [11, 35 + randValue()],
-    [12, 25 + randValue()],
-    [13, 15 + randValue()],
-    [14, 20 + randValue()],
-    [15, 45 + randValue()],
-    [16, 50 + randValue()],
-    [17, 65 + randValue()],
-    [18, 70 + randValue()],
-    [19, 85 + randValue()],
-    [20, 80 + randValue()],
-    [21, 75 + randValue()],
-    [22, 80 + randValue()],
-    [23, 75 + randValue()]
+    [1, 110],
+    [2, 109],
+    [3, 108],
+    [4, 104],
+    [5, 100],
+    [6, 99],
+    [7, 98],
+    [8, 95],
+    [9, 93],
+    [10,91],
+    [11,80],
+    [12,77],
+    [13,75],
+    [14,80],
+    [15,75],
+    [16,70],
+    [17,68],
+    [18,66],
+    [19,64],
+    [20,62],
+    [21,60],
+    [22,57],
+    [23,55]
     ];
     var visitors = [
-    [1, randValue() - 5],
-    [2, randValue() - 5],
-    [3, randValue() - 5],
-    [4, 6 + randValue()],
-    [5, 5 + randValue()],
-    [6, 20 + randValue()],
-    [7, 25 + randValue()],
-    [8, 36 + randValue()],
-    [9, 26 + randValue()],
-    [10, 38 + randValue()],
-    [11, 39 + randValue()],
-    [12, 50 + randValue()],
-    [13, 51 + randValue()],
-    [14, 12 + randValue()],
-    [15, 13 + randValue()],
-    [16, 14 + randValue()],
-    [17, 15 + randValue()],
-    [18, 15 + randValue()],
-    [19, 16 + randValue()],
-    [20, 17 + randValue()],
-    [21, 18 + randValue()],
-    [22, 19 + randValue()],
-    [23, 20 + randValue()],
-    [24, 21 + randValue()],
-    [25, 14 + randValue()],
-    [26, 24 + randValue()],
-    [27, 25 + randValue()],
-    [28, 26 + randValue()],
-    [29, 27 + randValue()],
-    [30, 31 + randValue()]
+    [0, randValue() - 5],
+    [1, 238 + randValue()],
+    [2, 313 + randValue()],
+    [3, 304 + randValue()],
+    [4, 200 + randValue()],
+    [5, 115 + randValue()],
+
     ];
 
     if ($('#site_statistics').size() != 0) {
@@ -144,14 +122,14 @@ var App = function () {
       $('#site_statistics_content').show();
       var plot_statistics = $.plot($("#site_statistics"), [{
         data: pageviews,
-        label: "Sales"
+        label: "sensor1"
       }
       ], {
         series: {
           lines: {
             show: true,
             lineWidth: 2, 
-            fill: true,
+            fill: false,  //下面是否有阴影
             fillColor: {
               colors: [{
                 opacity: 0.2
@@ -187,20 +165,24 @@ var App = function () {
           tickDecimals: 0
         }
       });
-      
+      var xname= [
+                  [0, "京九线"], 
+                  [1, "京广线"],
+                  [2, "京沪线"],
+                  [3, "青藏线"],
+                  [4, "川藏线"],
+                  [5, "包兰线"]
+              ];
       var plot_statistics2 = $.plot($("#site_statistics2"), [{
-        data: pageviews,
-        label: "Unique Visits"
-      }, {
         data: visitors,
-        label: "Page Views"
+        label: "total sensors"
       }
       ], {
         series: {
           bars: {
             show: true,
-            barWidth: 0.7,
-            lineWidth: 1,
+            barWidth: 0.5,
+            lineWidth: 0,
             fill: true,
             hoverable: true,
             fillColor: {
@@ -218,41 +200,36 @@ var App = function () {
           show: false
         },
         grid: {
-        labelMargin: 10,
-           axisMargin: 500,
+          labelMargin: 10,
+          axisMargin: 500,
           hoverable: true,
           clickable: true,
           tickColor: "rgba(255,255,255,0.22)",
           borderWidth: 0
         },
-        colors: ["#e67653", "#FFFFFF", "#52e136"],
+        colors: ["#FFFFFF","#e67653",  "#52e136"],
         xaxis: {
-          ticks: 11,
+          ticks: xname,
           tickDecimals: 0
         },
         yaxis: {
-          ticks: 6,
+          ticks: 10,
           tickDecimals: 0
         }
       });
       
       /*Pie Chart*/
       var data = [
-      { label: "Google", data: 50},
-      { label: "Dribbble", data: 7},
-      { label: "Twitter", data: 8},
-      { label: "Youtube", data: 9},
-      { label: "Microsoft", data: 14},
-      { label: "Apple", data: 13},
-      { label: "Amazon", data: 10},
-      { label: "Facebook", data: 5}
+      { label: "正常", data: 20},
+      { label: "失效", data: 10},
+
       ]; 
 
       $.plot('#piec', data, {
         series: {
           pie: {
             show: true,
-            innerRadius: 0.27,
+            innerRadius: 0.22,
             shadow:{
               top: 5,
               left: 15,
@@ -277,7 +254,7 @@ var App = function () {
           hoverable: true,
           clickable: true
         },
-        colors: ["#5793f3", "#dd4d79", "#bd3b47","#dd4444","#fd9c35","#fec42c","#d4df5a","#5578c2"],
+        colors: ["#5793f3", "#FF6347", "#bd3b47","#dd4444","#fd9c35","#fec42c","#d4df5a","#5578c2"],
         legend: {
           show: false
         }
@@ -633,7 +610,8 @@ var App = function () {
   };//End of maps
   
   
-  /*Charts*/
+  /*Charts*/  //1146
+  
   var charts = function(){
     if (!jQuery.plot) {
       return;
@@ -834,14 +812,10 @@ var App = function () {
       
       /*Pie Chart*/
       var data = [
-      { label: "Google", data: 50},
-      { label: "Dribbble", data: 7},
-      { label: "Twitter", data: 8},
-      { label: "Youtube", data: 9},
-      { label: "Microsoft", data: 14},
-      { label: "Apple", data: 13},
-      { label: "Amazon", data: 10},
-      { label: "Facebook", data: 5}
+      { label: "正常", data: 50},
+      { label: "偏大", data: 7},
+      { label: "偏小", data: 16},
+      { label: "失效", data: 9},
       ]; 
 
       $.plot('#piec', data, {
@@ -873,7 +847,7 @@ var App = function () {
           hoverable: true,
           clickable: true
         },
-        colors: ["#5793f3", "#dd4d79", "#bd3b47","#dd4444","#fd9c35","#fec42c","#d4df5a","#5578c2"],
+        colors: ["#5793f3","#5578c2","#d4df5a","#dd4444", "#dd4d79", "#bd3b47","#fd9c35","#fec42c"],
         legend: {
           show: false
         }
